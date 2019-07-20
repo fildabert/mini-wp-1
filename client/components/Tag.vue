@@ -1,6 +1,6 @@
 <template>
     <div>
-    <v-chip color="#607D8B" class="white--text" @click="viewTag">
+    <v-chip color="#BCAAA4" class="white--text" id="temp" @click="viewTag">
         <v-icon color="white" class="pr-1" style="font-size: 20px;" id="chipzzz">label</v-icon>
         {{tagname}}
     </v-chip>
@@ -21,9 +21,14 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 #chipzzz:hover{
     cursor: pointer;
+}
+
+#temp:hover{
+    font-size: 14px;
+    cursor: pointer !important;
 }
 
 </style>

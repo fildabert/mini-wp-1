@@ -2,6 +2,7 @@
     <v-parallax
     dark
     src="https://3dfs.com/wp-content/uploads/2017/05/Parallax-background.jpg"
+    class="mb-3"
   >
     <v-layout
     justify-space-between

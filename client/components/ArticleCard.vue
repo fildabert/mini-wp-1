@@ -1,13 +1,13 @@
 <template>
     <v-hover class="mb-3">
 
-        <v-card :class="`elevation-${hover ? 3 : 1}`" slot-scope="{ hover }">
+        <v-card :class="`elevation-${hover ? 3 : 1}`" slot-scope="{ hover }" color="#F5F5F5">
             <v-layout row wrap>
                 <v-flex xs9>
                     <v-card-title>
                         <div class="headline" @click="viewContent">{{articleData.title}}</div>
                         <div v-show="$route.path ==='/myarticles'" style="margin-left: 2%;">
-                            <v-icon class="editicon mr-1">edit</v-icon>
+                            <v-icon class="editicon mr-1" @click="editArticle">edit</v-icon>
                             <v-icon class="deleteicon" @click="deleteArticle">delete</v-icon>
                         </div>
                         <div class="article-content subheading grey--text text--darken-2 mt-2" style="min-width: 1000px;" @click="viewContent" v-html="articleData.content"></div>
@@ -57,24 +57,26 @@ export default {
     },
     methods: {
         viewContent: function() {
-            this.$router.push({name: "ViewArticle", params:{id: "123", title: this.articleData.title}})
+            this.$router.push({name: "ViewArticle", params:{id: this.articleData._id, title: this.articleData.title}})
         },
         deleteArticle: function() {
             axios.request({
                 method: "DELETE",
-                url: `${this.baseUrl}/articles/deleteartcle?id=${this.articleData._id}`,
+                url: `${this.baseUrl}/articles/deletearticle?id=${this.articleData._id}`,
                 headers: {
                     token: localStorage.getItem("token")
                 }
             })
             .then(response =>{
-                console.log(response.data)
                 this.$emit("changed")
             })
             .catch(err =>{
-                this.$emit("err", err.response.data)
+                this.$emit("err", "Oops something is wrong")
                 // console.log(err.response)
             })
+        },
+        editArticle: function() {
+            this.$router.push({name: "EditArticle", params:{id: this.articleData._id}})
         }
     },
     computed: {

@@ -83,11 +83,8 @@ export default {
                 this.padding = "290px"
             }
         },
-        path: function(val) {
-            console.log(val, "ADARI")
-        },
         isitLogin: function(val) {
-            if(val) {
+            if(val.username) {
                 this.isLogin = true
             } else {
                 this.isLogin = false

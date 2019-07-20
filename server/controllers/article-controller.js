@@ -69,15 +69,26 @@ class ArticleController {
         .catch(next)
     }
 
+    static findOneArticle(req, res, next) {
+        Article.findOne({_id: req.query.id})
+        .then(article =>{
+            res.status(200).json(article)
+        })
+        .catch(next)
+    }
+
     static updateArticle (req, res, next) {
-        Article.findOne({_id: req.body._id})
+        Article.findOne({_id: req.query.id})
         .then(article =>{
             article.title = req.body.title,
             article.content = req.body.content,
-            article.image = req.body.content,
+            article.image = req.body.image,
             article.author = req.headers.decoded._id,
-            article.tags.push(req.body.tags)
+            article.tags = req.body.tags
             return article.save()
+        })
+        .then(article =>{
+            res.status(200).json(article)
         })
         .catch(next)
     }

@@ -10,6 +10,7 @@ router.get("/tag", articleController.getByTag)
 router.get("/tags", articleController.getAllTags)
 router.get("/myarticles", authenticate, articleController.findMyArticles)
 router.post("/addarticle", authenticate, articleController.createArticle)
+router.get("/findOneArticle", authenticate, authorize, articleController.findOneArticle)
 router.put("/editarticle", authenticate, authorize, articleController.updateArticle)
 router.delete("/deletearticle", authenticate, authorize, articleController.deleteArticle)
 

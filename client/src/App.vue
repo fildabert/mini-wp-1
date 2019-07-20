@@ -1,7 +1,7 @@
 <template>
 <v-app>
     <SideBar @toggleSidebar="sidebarToggled" :userData="loggedUser"></SideBar>
-      <v-content style="height: 3000px;">
+      <v-content style="min-height: 1400px;">
     <Parralax v-show="$route.path === '/'" @logged="userLogged" :isLogin="loggedUser"></Parralax>
     <NavBar v-show="$route.path !== '/'" :sidebar="mini" @logged="userLogged" :isitLogin="loggedUser"></NavBar>
 
@@ -41,9 +41,7 @@ export default {
             this.mini = val
         },
         userLogged: function(val) {
-            console.log(val, "=====")
             this.loggedUser = val
-            console.log(this.loggedUser)
         }
     }
 }
