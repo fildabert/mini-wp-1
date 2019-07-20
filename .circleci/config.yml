@@ -10,7 +10,7 @@ jobs:
       # documented at https://circleci.com/docs/2.0/circleci-images/
       - image: circleci/mongo:4.0.10
 
-    working_directory: ~/home/circleci/repo/package.json
+    working_directory: ~/home
 
     steps:
       - checkout
