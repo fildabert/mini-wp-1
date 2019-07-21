@@ -3,14 +3,21 @@
 
         <v-card :class="`elevation-${hover ? 3 : 1}`" slot-scope="{ hover }" color="#F5F5F5">
             <v-layout row wrap>
-                <v-flex xs9>
+                <v-flex xs9 style="">
                     <v-card-title>
                         <div class="headline" @click="viewContent">{{articleData.title}}</div>
                         <div v-show="$route.path ==='/myarticles'" style="margin-left: 2%;">
                             <v-icon class="editicon mr-1" @click="editArticle">edit</v-icon>
                             <v-icon class="deleteicon" @click="deleteArticle">delete</v-icon>
                         </div>
-                        <div class="article-content subheading grey--text text--darken-2 mt-2" style="min-width: 1000px;" @click="viewContent" v-html="articleData.content"></div>
+
+                        <div class="subheading grey--text text--darken-2 mt-2" style="min-width: 95%; height: 44px;" @click="viewContent" v-line-clamp:20="2" >
+                            <p v-html="articleData.content">
+                                
+                            </p>
+                        </div>
+
+
                         <div>
                         
                         <div class="body-1 font-weight-regular mt-2">{{articleData.author.username}}</div>
@@ -76,7 +83,8 @@ export default {
             })
         },
         editArticle: function() {
-            this.$router.push({name: "EditArticle", params:{id: this.articleData._id}})
+            // this.$router.push("/asd")
+            this.$router.push({name: "EditArticle", params:{id: this.articleData._id, title: this.articleData.title}})
         }
     },
     computed: {

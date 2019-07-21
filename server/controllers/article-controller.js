@@ -3,12 +3,13 @@ const Article = require("../models/article")
 class ArticleController {
 
     static createArticle (req, res, next) {
+        var tags = req.body.tags.filter((v, i, a) => a.indexOf(v) === i); 
         var newArticle = new Article({
             title: req.body.title,
             content: req.body.content,
             image: req.body.image,
             author: req.headers.decoded._id,
-            tags: req.body.tags
+            tags: tags
         })
         newArticle.save()
         .then(article =>{
@@ -70,7 +71,7 @@ class ArticleController {
     }
 
     static findOneArticle(req, res, next) {
-        Article.findOne({_id: req.query.id})
+        Article.findOne({_id: req.query.id}).populate("author")
         .then(article =>{
             res.status(200).json(article)
         })
@@ -84,7 +85,13 @@ class ArticleController {
             article.content = req.body.content,
             article.image = req.body.image,
             article.author = req.headers.decoded._id,
-            article.tags = req.body.tags
+            req.body.tags.forEach(tag =>{
+                var includes = article.tags.includes(tag)
+                if(!includes) {
+                    article.tags.push(tag)
+                }
+            })
+            // article.tags = req.body.tags
             return article.save()
         })
         .then(article =>{
@@ -100,6 +107,47 @@ class ArticleController {
         })
         .then(article =>{
             res.status(200).json(article)
+        })
+        .catch(next)
+    }
+
+    static getTrendingTags (req, res , next) {
+        Article.find()
+        .then(articles =>{
+            var tags = []
+            var arr = []
+            var temp = {}
+            articles.forEach(article =>{
+                article.tags.forEach(tag =>{
+                    if(temp[tag] === undefined) {
+                        temp[tag] = 1
+                    } else {
+                        temp[tag]  ++
+                    }
+                })
+            })
+            var keys = Object.keys(temp)
+            
+            keys.forEach(key =>{
+                arr.push([key, temp[key]])
+            })
+
+            arr.sort(function(a, b) {
+              var tagA = a[1]
+              var tagB = b[1]  
+                if (tagA < tagB) {
+                  return 1;
+                }
+                if (tagA > tagB) {
+                  return -1;
+                }
+                return 0;
+              });
+              arr.splice(7, arr.length-7)
+              arr.forEach(tag =>{
+                  tags.push(tag[0])
+              })
+            res.status(200).json(tags)
         })
         .catch(next)
     }

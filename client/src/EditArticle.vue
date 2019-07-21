@@ -102,7 +102,7 @@ export default {
     },
     props: ["id"],
     created() {
-        console.log(`${this.baseUrl}/articles/findOneArticle?id=${this.id}`)
+        this.submitLoading = true
         axios.request({
             method: "GET",
             url: `${this.baseUrl}/articles/findOneArticle?id=${this.id}`,
@@ -111,10 +111,11 @@ export default {
             }
         })
         .then(response =>{
-            console.log("MASUK BERHASIL")
+            this.submitLoading = false
             var article = response.data
             this.title = article.title
             this.tags = article.tags
+            this.imageLinkFromGCS = article.image
             this.imageUrl = article.image
             this.content = article.content
         })
@@ -219,7 +220,7 @@ export default {
 <style>
 .tag-input span.v-chip {
   content: "label";
-  background-color: #607D8B;
+  background-color: #BCAAA4;
   color: #fff;
   font-size:1em;
   padding-left:7px;

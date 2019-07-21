@@ -1,10 +1,10 @@
 <template>
-    <div>
+    
     <v-chip color="#BCAAA4" class="white--text" id="temp" @click="viewTag">
         <v-icon color="white" class="pr-1" style="font-size: 20px;" id="chipzzz">label</v-icon>
         {{tagname}}
     </v-chip>
-    </div>
+    
 </template>
 
 <script>

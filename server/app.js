@@ -7,11 +7,12 @@ const mongoose = require('mongoose')
 const cors = require('cors')
 const db = mongoose.connection;
 const port = process.env.PORT
+const MONGO_DB = process.env.MONGO_DB
 const routes = require('./routes/index')
 const errorHandler = require("./helpers/errorHandler")
 
 
-mongoose.connect('mongodb://localhost:27017/miniwp', {useNewUrlParser: true, useCreateIndex: true});
+mongoose.connect(MONGO_DB, {useNewUrlParser: true, useCreateIndex: true});
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
   console.log('Connected to the database')
@@ -26,4 +27,4 @@ app.use('/api', routes)
 app.use(errorHandler)  
 
 
-app.listen(port, () => console.log(`Listening on port ${port}`))
+// app.listen(port, () => console.log(`Listening on port ${port}`))

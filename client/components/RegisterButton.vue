@@ -40,7 +40,7 @@
         </v-container>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="green darken-1" flat @click="dialog = false">Register</v-btn>
+          <v-btn color="green darken-1" flat @click="register">Register</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -69,13 +69,14 @@ export default {
           url: `${this.baseUrl}/users/register`,
           data: {
             username: this.username,
-            emaik: this.email,
+            email: this.email,
             password: this.password
           }
         })
         .then(response =>{
           localStorage.setItem("token", response.data.access_token)
-          localStorage.setItem("username", response.data.username)
+          this.dialog = false
+          this.$emit("userLogged", response.data.username)
         })
         .catch(err =>{
           console.log(err)

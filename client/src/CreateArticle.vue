@@ -199,7 +199,7 @@ export default {
 <style>
 .tag-input span.v-chip {
   content: "label";
-  background-color: #607D8B;
+  background-color: #BCAAA4;
   color: #fff;
   font-size:1em;
   padding-left:7px;

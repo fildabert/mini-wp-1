@@ -32,7 +32,7 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <!-- <v-btn icon @click="googleLogin"><v-img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/32px-Google_%22G%22_Logo.svg.png"></v-img></v-btn> -->
-          <v-btn color="green darken-1" flat @click="dialog = false">Login</v-btn>
+          <v-btn color="green darken-1" flat @click="login">Login</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -40,6 +40,8 @@
 </template>
 
 <script>
+import axios from "axios"
+
 export default {
     name: "LoginButton",
     data () {
@@ -47,11 +49,29 @@ export default {
             dialog: false,
             valid: true,
             username: "",
-            password: ""
+            password: "",
+            baseUrl: "http://localhost:3000/api"
         }
     },
     methods: {
-     
+     login: function() {
+       axios.request({
+         method: "POST",
+         url: `${this.baseUrl}/users/login`,
+         data: {
+           username: this.username,
+           password: this.password
+         }
+       })
+       .then(response =>{
+         localStorage.setItem("token", response.data.access_token)
+         this.dialog = false
+         this.$emit("userLogged", response.data.username)
+       })
+       .catch(err =>{
+         console.log(err.response)
+       })
+     }
     }
 }
 </script>
