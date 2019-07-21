@@ -10,6 +10,7 @@ const client = new OAuth2Client(CLIENT_ID);
 class UserController {
 
     static register (req, res, next) {
+        console.log("ASD MASU")
         var newUser = new User({
             username: req.body.username,
             email: req.body.email,

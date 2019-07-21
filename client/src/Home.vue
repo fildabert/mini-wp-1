@@ -4,7 +4,15 @@
       <v-progress-circular indeterminate color="primary"></v-progress-circular>
     </v-layout>
 
-    <ArticleCard v-for="article in articles" v-bind:key="article._id" :articleData="article"></ArticleCard>
+    <v-layout row wrap>
+      <v-flex xs9>
+        <ArticleCard v-for="article in articles" v-bind:key="article._id" :articleData="article"></ArticleCard>
+      </v-flex>
+  
+      <v-flex xs3>
+        <TrendingTags></TrendingTags>
+      </v-flex>
+    </v-layout>
     <router-view></router-view>
   </div>
 </template>
@@ -12,11 +20,13 @@
 <script>
 import ArticleCard from "../components/ArticleCard";
 import axios from "axios";
+import TrendingTags from "../components/TrendingTags"
 
 export default {
   name: "Home",
   components: {
-    ArticleCard
+    ArticleCard,
+    TrendingTags
   },
   created() {
     this.loading = true;

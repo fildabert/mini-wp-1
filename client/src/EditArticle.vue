@@ -9,7 +9,7 @@
             ></v-progress-circular>
         </v-flex>
         <v-flex xs12>
-        <h1>Create Article</h1>
+        <h1>Edit Article</h1>
 
         </v-flex>
 
@@ -77,7 +77,7 @@
         </v-expansion-panel>
         </v-flex>
         <v-flex xs1 offset-xs5 class="mt-2">
-            <v-btn @click="createArticle">Submit</v-btn>
+            <v-btn @click="editArticle">Edit Article</v-btn>
         </v-flex>
 
 
@@ -96,12 +96,33 @@ import Editor from '@tinymce/tinymce-vue';
 import axios from "axios"
 
 export default {
-    name: "CreateArticle",
+    name: "EditArticle",
     components: {
         Editor
     },
+    props: ["id"],
     created() {
-    
+        this.submitLoading = true
+        axios.request({
+            method: "GET",
+            url: `${this.baseUrl}/articles/findOneArticle?id=${this.id}`,
+            headers: {
+                token: localStorage.getItem("token")
+            }
+        })
+        .then(response =>{
+            this.submitLoading = false
+            var article = response.data
+            this.title = article.title
+            this.tags = article.tags
+            this.imageLinkFromGCS = article.image
+            this.imageUrl = article.image
+            this.content = article.content
+        })
+        .catch(err =>{
+            console.log("KONTOL", err.response.data)
+            console.log(err.response)
+        })
     },
     mounted() {
        
@@ -159,11 +180,11 @@ export default {
 				this.imageUrl = ''
 			}
         },
-        createArticle: function() {
+        editArticle: function() {
             this.submitLoading = true
             axios.request({
-                method: "POST",
-                url: `${this.baseUrl}/articles/addarticle`,
+                method: "PUT",
+                url: `${this.baseUrl}/articles/editarticle?id=${this.id}`,
                 headers: {
                     token: localStorage.getItem("token")
                 },
@@ -176,7 +197,7 @@ export default {
             })
             .then(response =>{
                 this.submitLoading = false
-                this.$router.push("/")
+                this.$router.push("/myarticles")
             })
             .catch(err =>{
                 this.snackbarError(err.response.data)

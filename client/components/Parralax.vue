@@ -2,6 +2,7 @@
     <v-parallax
     dark
     src="https://3dfs.com/wp-content/uploads/2017/05/Parallax-background.jpg"
+    class="mb-3"
   >
     <v-layout
     justify-space-between
@@ -20,8 +21,8 @@
       <h2 class="headline" v-show="username">Hello, {{username}}</h2>
       <h4 class="subheading">Let's get started</h4>
       <v-flex>
-      <LoginButton v-show="!username"></LoginButton>
-      <RegisterButton v-show="!username"></RegisterButton>
+      <LoginButton v-show="!username" @userLogged="loginBiasa"></LoginButton>
+      <RegisterButton v-show="!username" @userLogged="loginBiasa"></RegisterButton>
       </v-flex>
       <v-flex style="padding-bottom: 10%;">
       <v-btn @click="googleLogin" v-show="!username" ref="googleLogin"><v-icon>fab fa-google</v-icon> <span class="pl-1">Login with google</span></v-btn>
@@ -83,6 +84,9 @@ export default {
         .catch(err =>{
           console.log(err)
         })
+      },
+      loginBiasa: function(val) {
+        this.$emit("logged", {username: val})
       },
       logout: function() {
         this.$gAuth.signOut()
