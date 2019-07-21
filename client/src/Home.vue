@@ -37,7 +37,7 @@ export default {
   data() {
     return {
       loading: false,
-      baseUrl: "http://localhost:3000/api",
+      baseUrl: "https://miniwp-server.fildabert.com/api",
       articles: []
     };
   },

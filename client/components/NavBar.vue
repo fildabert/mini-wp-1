@@ -35,7 +35,7 @@ export default {
         return {
             padding: "290px",
             isLogin: false,
-            baseUrl: "http://localhost:3000/api",
+            baseUrl: "https://miniwp-server.fildabert.com/api",
             path: this.$route.path
         }
     },

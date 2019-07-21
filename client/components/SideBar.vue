@@ -85,7 +85,7 @@ import axios from "axios"
     data () {
       return {
         drawer: true,
-        baseUrl: "http://localhost:3000/api",
+        baseUrl: "https://miniwp-server.fildabert.com/api",
         items: [
           { title: 'Home', icon: 'fas fa-home', link: "/" },
           { title: 'Create Article', icon: 'edit', link: "/createarticle"},

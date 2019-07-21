@@ -59,7 +59,7 @@ export default {
     },
     data() {
         return {
-            baseUrl: "http://localhost:3000/api"
+            baseUrl: "https://miniwp-server.fildabert.com/api"
         }
     },
     methods: {
