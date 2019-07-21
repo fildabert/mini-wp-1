@@ -138,7 +138,7 @@ export default {
             imageFile: "",
             imageUrl: "",
             imageLinkFromGCS: "",
-            baseUrl: "http://localhost:3000/api",
+            baseUrl: "https://miniwp-server.fildabert.com/api",
             snackbar: false,
             errorMessage: ""
 

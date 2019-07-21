@@ -37,12 +37,12 @@ const ca = null
 const credentials = null
 
 
-const https = require("https")
+// const https = require("https")
 
-const server = https.createServer(credentials, app)
+// const server = https.createServer(credentials, app)
 
-server.listen(port, () =>{
-  console.log("Server is running on port", port)
-})
+// server.listen(port, () =>{
+//   console.log("Server is running on port", port)
+// })
 
-// app.listen(port, () => console.log(`Listening on port ${port}`))
+app.listen(port, () => console.log(`Listening on port ${port}`))
