@@ -351,3 +351,42 @@ headers:
 ```
 {deletedCount: 1}
 ```
+
+
+## Error Cases
+
+```
+400: BAD REQUEST
+Usually happens when user made a bad request. eg: failing to fill in all the required fields or filling an invalid input type 
+{
+    code: 400,
+    message: (Error Message) 
+}
+```
+
+```
+401: UNAUTHORIZED
+Usually happens when user is not authorized to make an action. eg: Attempting to create an article without loggin in first
+{
+    code: 401,
+    message: (Error Message)
+}
+```
+
+```
+404: NOT FOUND
+Usually happens when user is making a request to a path that does not exist
+{
+    code: 404,
+    message: (Error Message)
+}
+```
+
+```
+500: INTERNAL SERVER ERROR
+Happens when there is an error on the backend side
+{
+    code: 500,
+    message: Internal Server Error
+}
+```
